@@ -11,7 +11,7 @@ Polylglot doesn’t perform any translation; it simply gives you a way to manage
 
 install with [composer](https://getcomposer.org):
 
-    $ composer require m1sh0u/polyglot.php
+    $ composer require m1sh0u/polyglot-php
 
 ### Running the tests
 
@@ -237,7 +237,6 @@ If a truthy value is provided, it will set the locale. Afterwards, it will retur
 ### Polyglot->clear()
 
 Clears all phrases. Useful for special cases, such as freeing up memory if you have lots of phrases but no longer need to perform any translation. Also used internally by `replace`.
-
 
 ### Polyglot->replace($phrases)
 
