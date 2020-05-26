@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MihaiMATEI\Polyglot\Pluralization\Rules;
+namespace Polyglot\Pluralization\Rules;
 
 /**
  * A Rule interface to be implemented by all the existing pluralization rules.

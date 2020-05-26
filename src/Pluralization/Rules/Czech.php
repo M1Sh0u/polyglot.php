@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MihaiMATEI\Polyglot\Pluralization\Rules;
+namespace Polyglot\Pluralization\Rules;
 
 /**
  * @package Polyglot/Pluralization/Rules

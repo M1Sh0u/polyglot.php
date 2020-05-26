@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace MihaiMATEI\Polyglot\Pluralization;
+namespace Polyglot\Pluralization;
 
-use MihaiMATEI\Polyglot\Pluralization\Rules\Arabic;
-use MihaiMATEI\Polyglot\Pluralization\Rules\BosnianSerbian;
-use MihaiMATEI\Polyglot\Pluralization\Rules\Chinese;
-use MihaiMATEI\Polyglot\Pluralization\Rules\Croatian;
-use MihaiMATEI\Polyglot\Pluralization\Rules\Czech;
-use MihaiMATEI\Polyglot\Pluralization\Rules\French;
-use MihaiMATEI\Polyglot\Pluralization\Rules\German;
-use MihaiMATEI\Polyglot\Pluralization\Rules\Icelandic;
-use MihaiMATEI\Polyglot\Pluralization\Rules\Lithuanian;
-use MihaiMATEI\Polyglot\Pluralization\Rules\Polish;
-use MihaiMATEI\Polyglot\Pluralization\Rules\RuleInterface;
-use MihaiMATEI\Polyglot\Pluralization\Rules\Russian;
-use MihaiMATEI\Polyglot\Pluralization\Rules\Slovenian;
+use Polyglot\Pluralization\Rules\Arabic;
+use Polyglot\Pluralization\Rules\BosnianSerbian;
+use Polyglot\Pluralization\Rules\Chinese;
+use Polyglot\Pluralization\Rules\Croatian;
+use Polyglot\Pluralization\Rules\Czech;
+use Polyglot\Pluralization\Rules\French;
+use Polyglot\Pluralization\Rules\German;
+use Polyglot\Pluralization\Rules\Icelandic;
+use Polyglot\Pluralization\Rules\Lithuanian;
+use Polyglot\Pluralization\Rules\Polish;
+use Polyglot\Pluralization\Rules\RuleInterface;
+use Polyglot\Pluralization\Rules\Russian;
+use Polyglot\Pluralization\Rules\Slovenian;
 
 /**
  * Rule factory which crafts a pluralization rule depending on the provided locale.

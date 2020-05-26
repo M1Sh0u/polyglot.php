@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MihaiMATEI\Polyglot;
+namespace Polyglot;
 
-use MihaiMATEI\Polyglot\Pluralization\RuleFactory;
-use MihaiMATEI\Polyglot\Pluralization\Rules\RuleInterface;
+use Polyglot\Pluralization\RuleFactory;
+use Polyglot\Pluralization\Rules\RuleInterface;
 use RuntimeException;
 
 /**
