@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MihaiMATEI\Polyglot;
 
 use MihaiMATEI\Polyglot\Pluralization\RuleFactory;
+use MihaiMATEI\Polyglot\Pluralization\Rules\RuleInterface;
 use RuntimeException;
 
 /**
@@ -46,6 +47,11 @@ class Polyglot
     private $tokenRegex;
 
     /**
+     * @var RuleInterface
+     */
+    private $pluralRule;
+
+    /**
      * Class constructor.
      *
      * @param array $options
@@ -55,6 +61,7 @@ class Polyglot
         $this->extend($options['phrases'] ?? []);
 
         $this->currentLocale = $options['locale'] ?? 'en';
+        $this->pluralRule = RuleFactory::make($this->currentLocale);
         $this->delimiter = $options['delimiter'] ?? '||||';
         $this->tokenRegex = $this->constructTokenRegex($options['interpolation'] ?? []);
         $this->warn = $options['warn'] ?? static function(string $message) {};
@@ -338,8 +345,9 @@ class Polyglot
         // choose the correct plural form. This is only done if `count` is set.
         if (($options['smart_count'] ?? null) !== null && $result) {
             $texts = explode($this->delimiter, $result);
-            $pluralTypeIndex = RuleFactory::make($locale)($options['smart_count']);
-            $result = $texts[$pluralTypeIndex] ?? $texts[0];
+            $pluralRule = $locale !== $this->currentLocale ? RuleFactory::make($locale) : $this->pluralRule;
+            $pluralTypeIndex = $pluralRule->decide($options['smart_count']);
+            $result = trim($texts[$pluralTypeIndex] ?? $texts[0]);
         }
 
         $interpolationRegex = $tokenRegex ?? $this->tokenRegex;
