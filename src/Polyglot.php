@@ -59,9 +59,8 @@ class Polyglot
     public function __construct(array $options = [])
     {
         $this->extend($options['phrases'] ?? []);
+        $this->locale($options['locale'] ?? 'en');
 
-        $this->currentLocale = $options['locale'] ?? 'en';
-        $this->pluralRule = RuleFactory::make($this->currentLocale);
         $this->delimiter = $options['delimiter'] ?? '||||';
         $this->tokenRegex = $this->constructTokenRegex($options['interpolation'] ?? []);
         $this->warn = $options['warn'] ?? static function(string $message) {};
@@ -217,6 +216,7 @@ class Polyglot
     {
         if ($locale !== null) {
             $this->currentLocale = $locale;
+            $this->pluralRule = RuleFactory::make($locale);
         }
 
         return $locale;
