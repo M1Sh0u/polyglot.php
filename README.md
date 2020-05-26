@@ -253,11 +253,11 @@ Returns all the phrases.
 
 ### Polyglot->transformPhrase($phrase[, $substitutions[, $locale[, $tokenRegex]]])
 
-Takes a phrase string and transforms it by choosing the correct plural form and interpolating it. This method is used internally by `t`.
-The correct plural form is selected if `$substitutions['smart_count']` is set.
-You can pass in a number instead of an array as `$substitutions` as a shortcut for `smart_count`.
-You should pass in a third argument, the locale, to specify the correct plural type. It defaults to `'en'` which has 2 plural forms.
-You should pass in a forth argument, to specify the interpolation token regex. It defaults to `/%{(.*?)}/`.
+- Takes a phrase string and transforms it by choosing the correct plural form and interpolating it. This method is used internally by `t`.
+- The correct plural form is selected if `$substitutions['smart_count']` is set.
+- You can pass in a number instead of an array as `$substitutions` as a shortcut for `smart_count`.
+- You should pass in a third argument, the locale, to specify the correct plural type. It defaults to `'en'` which has 2 plural forms.
+- You should pass in a forth argument, to specify the interpolation token regex. It defaults to `~%{(.*?)}~`. Note: the regex delimiter `~` is included by default.
 
 ## Options Overview
 `new Polyglot` accepts a number of options:
