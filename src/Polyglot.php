@@ -277,7 +277,7 @@ class Polyglot
 
         if ($this->has($key) && is_string($this->phrases[$key])) {
             $phrase = $this->phrases[$key];
-        } elseif(is_string($options['_'] ?? false)) {
+        } elseif(!empty($options['_'])) {
             $phrase = $options['_'];
         } elseif ($this->onMissingKey !== null) {
             $result = call_user_func($this->onMissingKey, $key, $options, $this->currentLocale, $this->tokenRegex);
@@ -288,7 +288,7 @@ class Polyglot
             $result = $key;
         }
 
-        if (is_string($phrase)) {
+        if (!empty($phrase)) {
             $result = $this->transformPhrase($phrase, $options, $this->currentLocale, $this->tokenRegex);
         }
 
