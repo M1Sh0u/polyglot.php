@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MihaiMATEI\Polyglot;
 
+use MihaiMATEI\Polyglot\Pluralization\RuleFactory;
 use RuntimeException;
 
 /**
@@ -335,7 +336,7 @@ class Polyglot
         // Select plural form: based on a phrase text that contains `n`
         // plural forms separated by `delimiter`, a `locale`, and a `substitutions.smart_count`,
         // choose the correct plural form. This is only done if `count` is set.
-        if ($options['smart_count'] !== null && $result) {
+        if (($options['smart_count'] ?? null) !== null && $result) {
             $texts = explode($this->delimiter, $result);
             $pluralTypeIndex = RuleFactory::make($locale)($options['smart_count']);
             $result = $texts[$pluralTypeIndex] ?? $texts[0];
@@ -346,18 +347,6 @@ class Polyglot
         return preg_replace_callback($interpolationRegex, static function($matches) use ($options) {
             return $options[$matches[1]] ?? $matches[1];
         }, $result);
-    }
-
-    /**
-     * Escape the given token.
-     *
-     * @param string $token
-     *
-     * @return string
-     */
-    private function escape(string $token): string
-    {
-        return preg_replace('/[.*+?^${}()|[\]\\]/', '\\$&', $token);
     }
 
     /**
@@ -376,6 +365,6 @@ class Polyglot
             throw new RuntimeException('"' . $this->delimiter . '" token is reserved for pluralization');
         }
 
-        return $this->escape($prefix) . '(.*?)' . $this->escape($suffix);
+        return '~' . $prefix . '(.*?)' . $suffix . '~';
     }
 }
