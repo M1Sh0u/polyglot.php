@@ -1,0 +1,29 @@
+{
+  "name": "polyglot.php",
+  "description": "Polyglot.php is a replica of the Airbnb's Polyglot.js I18n helper library",
+  "keywords": [
+    "polyglot",
+    "i18n",
+    "translate",
+    "language"
+  ],
+  "homepage": "https://github.com/m1sh0u/polyglot.php",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Mihai MATEI",
+      "email": "mihai.matei@outlook.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^7.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "MihaiMATEI\\Polyglot\\": "src"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
