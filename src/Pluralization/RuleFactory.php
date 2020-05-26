@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MihaiMATEI\Polyglot;
+namespace MihaiMATEI\Polyglot\Pluralization;
 
 use MihaiMATEI\Polyglot\Pluralization\Rules\Arabic;
 use MihaiMATEI\Polyglot\Pluralization\Rules\BosnianSerbian;
