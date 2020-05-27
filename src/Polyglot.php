@@ -280,7 +280,7 @@ class Polyglot
         } elseif(!empty($options['_'])) {
             $phrase = $options['_'];
         } elseif ($this->onMissingKey !== null) {
-            $result = call_user_func($this->onMissingKey, $key, $options, $this->currentLocale, $this->tokenRegex);
+            $result = call_user_func($this->onMissingKey, $key, $options, $this->currentLocale, $this->tokenRegex, $this);
         } else {
             // warn missing translations
             call_user_func($this->warn, 'Missing translation for key: "' . $key . '"');
