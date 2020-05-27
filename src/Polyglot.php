@@ -219,7 +219,7 @@ class Polyglot
             $this->pluralRule = RuleFactory::make($locale);
         }
 
-        return $locale;
+        return $this->currentLocale;
     }
 
     /**
@@ -265,19 +265,20 @@ class Polyglot
      * ]);
      * => "I like to write in JavaScript."
      *
-     * @param string $key
-     * @param array  $options
+     * @param string     $key
+     * @param array|int  $options
      *
      * @return string
      */
-    public function t(string $key, array $options = []): string
+    public function t(string $key, $options = []): string
     {
         $phrase = '';
         $result = '';
+        $options = is_int($options) ? ['smart_count' => $options] : $options;
 
         if ($this->has($key) && is_string($this->phrases[$key])) {
             $phrase = $this->phrases[$key];
-        } elseif(!empty($options['_'])) {
+        } elseif(isset($options['_'])) {
             $phrase = $options['_'];
         } elseif ($this->onMissingKey !== null) {
             $result = call_user_func($this->onMissingKey, $key, $options, $this->currentLocale, $this->tokenRegex, $this);
@@ -353,7 +354,11 @@ class Polyglot
         $interpolationRegex = $tokenRegex ?? $this->tokenRegex;
 
         return preg_replace_callback($interpolationRegex, static function($matches) use ($options) {
-            return $options[$matches[1]] ?? $matches[1];
+            if (array_key_exists($matches[1], $options) && $options[$matches[1]] !== null) {
+                return $options[$matches[1]];
+            }
+
+            return ($options['interpolation']['prefix'] ?? '%{') . $matches[1] . ($options['interpolation']['suffix'] ?? '}');
         }, $result);
     }
 
@@ -373,6 +378,6 @@ class Polyglot
             throw new RuntimeException('"' . $this->delimiter . '" token is reserved for pluralization');
         }
 
-        return '~' . $prefix . '(.*?)' . $suffix . '~';
+        return '~' . preg_quote($prefix) . '(.*?)' . preg_quote($suffix) . '~';
     }
 }
