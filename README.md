@@ -39,7 +39,7 @@ See [Options Overview](#options-overview) for information about the options arra
 
 ### Translation
 
-Tell Polyglot what to say by simply giving it a phrases object,
+Tell Polyglot what to say by simply giving it a phrases key-value pair,
 where the key is the canonical name of the phrase and the value is
 the already-translated string.
 
@@ -146,6 +146,7 @@ $polyglot->extend([
 ])
 ```
 
+
 `$polyglot->t()` will choose the appropriate phrase based on the provided `smart_count` option, whose value is a number.
 
 ```php
@@ -166,6 +167,39 @@ $polyglot->t("num_cars", 2);
 => "2 cars"
 ```
 
+### Custom plural rules
+
+If needed, one can replace the existing plural rules or specify new custom plural rules for certain locales. The custom plural rules must be objects which implements `Polyglot\Pluralization\Rules\RuleInterface`.
+They will be passed to the Polyglot `pluralRules` option as a key-value pair where the key is the locale and the value is the custom rule object.  
+
+Let's define a custom plural rule for romanian language:
+
+```php
+use Polyglot\Pluralization\Rules\RuleInterface;
+
+class RomanianRule implements RuleInterface
+{
+    public function decide(int $n): int
+    {
+        return $n !== 1 ? 1 : 0;
+    }
+}
+```
+
+Now you can pass it to the Polyglot options to be used whenever the `ro` locale is used for pluralization:
+
+```php
+$polyglot = new Polyglot([
+    'phrases' => ['num_cars' => '%{smart_count} mașină |||| %{smart_count} mașini'],
+    'locale' => 'ro',
+    'pluralRules' => ['ro' => new RomanianRule()]
+]);
+
+$polyglot->t('num_cars', 1)
+=> 1 mașină
+$polyglot->t('num_cars', 6)
+=> 6 mașini
+```
 
 ## Public Instance Methods
 
@@ -274,6 +308,7 @@ Returns all the phrases.
  - `allowMissing`: a boolean to control whether missing keys in a `t` call are allowed. If `false`, by default, a missing key is returned and a warning is issued.
  - `onMissingKey`: if `allowMissing` is `true`, and this option is a function, then it will be called instead of the default functionality. Arguments passed to it are `$key`, `$options`, `$locale`, `$tokenRegex` and `Polyglot $polyglot`. The return of this function will be used as a translation fallback when `$polyglot->t('missing.key')` is called (hint: return the key).
  - `interpolation`: an array to change the substitution syntax for interpolation by setting the `prefix` and `suffix` fields.
+ - `pluralRules`: replace or add new plural rules for certain locales by providing a key-value pair where the key is the locale and the value is the plural rule object implementing `Polyglot\Pluralization\Rules\RuleInterface`
 
 
 ## Related projects

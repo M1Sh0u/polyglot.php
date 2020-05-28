@@ -47,6 +47,11 @@ class Polyglot
     private $tokenRegex;
 
     /**
+     * @var array
+     */
+    private $customPluralRules;
+
+    /**
      * @var RuleInterface
      */
     private $pluralRule;
@@ -59,6 +64,8 @@ class Polyglot
     public function __construct(array $options = [])
     {
         $this->extend($options['phrases'] ?? []);
+
+        $this->customPluralRules = $options['pluralRules'] ?? [];
         $this->locale($options['locale'] ?? 'en');
 
         $this->delimiter = $options['delimiter'] ?? '||||';
@@ -216,7 +223,7 @@ class Polyglot
     {
         if ($locale !== null) {
             $this->currentLocale = $locale;
-            $this->pluralRule = RuleFactory::make($locale);
+            $this->pluralRule = RuleFactory::make($locale, $this->customPluralRules);
         }
 
         return $this->currentLocale;
@@ -342,7 +349,7 @@ class Polyglot
         // choose the correct plural form. This is only done if `count` is set.
         if (($options['smart_count'] ?? null) !== null && $result) {
             $texts = explode($this->delimiter, $result);
-            $pluralRule = $locale !== $this->currentLocale ? RuleFactory::make($locale) : $this->pluralRule;
+            $pluralRule = $locale !== $this->currentLocale ? RuleFactory::make($locale, $this->customPluralRules) : $this->pluralRule;
             $pluralTypeIndex = $pluralRule->decide($options['smart_count']);
             $result = trim($texts[$pluralTypeIndex] ?? $texts[0]);
         }

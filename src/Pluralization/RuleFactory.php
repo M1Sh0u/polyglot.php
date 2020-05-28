@@ -17,6 +17,7 @@ use Polyglot\Pluralization\Rules\Polish;
 use Polyglot\Pluralization\Rules\RuleInterface;
 use Polyglot\Pluralization\Rules\Russian;
 use Polyglot\Pluralization\Rules\Slovenian;
+use RuntimeException;
 
 /**
  * Rule factory which crafts a pluralization rule depending on the provided locale.
@@ -65,11 +66,21 @@ class RuleFactory
      * Make a new pluralization rule.
      *
      * @param string $locale
+     * @param array  $customPluralRules
      *
      * @return RuleInterface
      */
-    public static function make(string $locale): RuleInterface
+    public static function make(string $locale, array $customPluralRules = []): RuleInterface
     {
+        if (isset($customPluralRules[$locale])) {
+            if (!is_object($customPluralRules[$locale]) || !$customPluralRules[$locale] instanceof RuleInterface) {
+                throw new RuntimeException('All custom plural rules must be classes '
+                    . 'which implement the interface Polyglot\Pluralization\Rules\RuleInterface');
+            }
+
+            return $customPluralRules[$locale];
+        }
+
         $rule = self::$localesRulesMapping[$locale] ?? German::class;
 
         return new $rule();
