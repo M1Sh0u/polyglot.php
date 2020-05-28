@@ -63,11 +63,11 @@ class Polyglot
 
         $this->delimiter = $options['delimiter'] ?? '||||';
         $this->tokenRegex = $this->constructTokenRegex($options['interpolation'] ?? []);
-        $this->warn = $options['warn'] ?? static function(string $message) {};
+        $this->warn = $options['warn'] ?? static function() {};
 
         $allowMissing = ($options['allowMissing'] ?? false) === true
-            ? function (...$params) {
-                return $this->transformPhrase(...$params);
+            ? static function ($key, $options, $locale, $tokenRegex, Polyglot $polyglot) {
+                return $polyglot->transformPhrase($key, $options, $locale, $tokenRegex);
               }
             : null;
         $this->onMissingKey = is_callable($options['onMissingKey'] ?? false) ? $options['onMissingKey'] : $allowMissing;
@@ -319,19 +319,15 @@ class Polyglot
      * You should pass in a third argument, the locale, to specify the correct plural type.
      * It defaults to `'en'` with 2 plural forms.
      *
-     * @param string      $phrase
-     * @param null        $substitutions
-     * @param string      $locale
-     * @param string|null $tokenRegex
+     * @param string         $phrase
+     * @param null|array|int $substitutions
+     * @param string         $locale
+     * @param string|null    $tokenRegex
      *
      * @return string
      */
     public function transformPhrase(string $phrase, $substitutions = null, string $locale = 'en', ?string $tokenRegex = null): string
     {
-        if (!is_string($phrase)) {
-            throw new RuntimeException('Polyglot.transformPhrase expects argument #1 to be string');
-        }
-
         if ($substitutions === null) {
             return $phrase;
         }
