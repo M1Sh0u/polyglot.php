@@ -27,6 +27,41 @@ use Polyglot\Pluralization\Rules\Slovenian;
 class RuleFactory
 {
     /**
+     * @var array
+     */
+    private static $localesRulesMapping = [
+        'ar' => Arabic::class,
+        'bs-Latn-BA' => BosnianSerbian::class,
+        'bs-Cyrl-BA' => BosnianSerbian::class,
+        'srl-RS' => BosnianSerbian::class,
+        'sr-RS' => BosnianSerbian::class,
+        'id' => Chinese::class,
+        'id-ID' => Chinese::class,
+        'ja' => Chinese::class,
+        'ko' => Chinese::class,
+        'ko-KR' => Chinese::class,
+        'lo' => Chinese::class,
+        'ms' => Chinese::class,
+        'th' => Chinese::class,
+        'th-TH' => Chinese::class,
+        'zh' => Chinese::class,
+        'hr' => Croatian::class,
+        'hr-HR' => Croatian::class,
+        'fr' => French::class,
+        'tl' => French::class,
+        'pt-br' => French::class,
+        'ru' => Russian::class,
+        'ru-RU' => Russian::class,
+        'lt' => Lithuanian::class,
+        'cs' => Czech::class,
+        'cs-CZ' => Czech::class,
+        'sk' => Czech::class,
+        'pl' => Polish::class,
+        'is' => Icelandic::class,
+        'sl-SL' => Slovenian::class,
+    ];
+
+    /**
      * Make a new pluralization rule.
      *
      * @param string $locale
@@ -35,61 +70,8 @@ class RuleFactory
      */
     public static function make(string $locale): RuleInterface
     {
-        switch($locale) {
-            case 'ar':
-                return new Arabic();
+        $rule = self::$localesRulesMapping[$locale] ?? German::class;
 
-            case 'bs-Latn-BA':
-            case 'bs-Cyrl-BA':
-            case 'srl-RS':
-            case 'sr-RS':
-                return new BosnianSerbian();
-
-            case 'id':
-            case 'id-ID':
-            case 'ja':
-            case 'ko':
-            case 'ko-KR':
-            case 'lo':
-            case 'ms':
-            case 'th':
-            case 'th-TH':
-            case 'zh':
-                return new Chinese();
-
-            case 'hr':
-            case 'hr-HR':
-                return new Croatian();
-
-            case 'fr':
-            case 'tl':
-            case 'pt-br':
-                return new French();
-
-            case 'ru':
-            case 'ru-RU':
-                return new Russian();
-
-            case 'lt':
-                return new Lithuanian();
-
-            case 'cs':
-            case 'cs-CZ':
-            case 'sk':
-                return new Czech();
-
-            case 'pl':
-                return new Polish();
-
-            case 'is':
-                return new Icelandic();
-
-            case 'sl-SL':
-                return new Slovenian();
-
-            // 'fa', 'da', 'de', 'en', 'es', 'fi', 'el', 'he', 'hi-IN', 'hu', 'hu-HU', 'it', 'nl', 'no', 'pt', 'sv', 'tr'
-            default:
-                return new German();
-        }
+        return new $rule();
     }
 }
