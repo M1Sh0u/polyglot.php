@@ -28,7 +28,8 @@
     }
   },
   "scripts": {
-    "test": "vendor\\bin\\phpunit tests"
+    "test": "vendor/bin/phpunit tests",
+    "test-win": "vendor\\bin\\phpunit tests"
   },
   "minimum-stability": "dev",
   "prefer-stable": true
