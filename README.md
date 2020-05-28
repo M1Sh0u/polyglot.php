@@ -21,7 +21,7 @@ install with [composer](https://getcomposer.org):
 
 ### Running the tests
 
-Clone the repo, run `composer.phar update --prefer-dist --dev`, and `composer test`.
+Clone the repo, run `composer update --prefer-dist --dev`, and `composer test`, or `composer test-win` for windows.
 
 ## Usage
 
