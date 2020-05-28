@@ -1,6 +1,12 @@
 Polyglot.php
 ===========
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/m1sh0u/polyglot-php.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-translation-loader)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+![run-tests](https://github.com/M1Sh0u/polyglot.php/workflows/run-tests/badge.svg?branch=master)
+[![Quality Score](https://img.shields.io/scrutinizer/g/m1sh0u/polyglot-php.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-translation-loader)
+[![Total Downloads](https://img.shields.io/packagist/dt/m1sh0u/polyglot-php.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-translation-loader)
+
 Polyglot.php is a tiny I18n helper library written in PHP, which is based entirely on the Polyglot.js Airbnb's I18n javascript library. 
 
 The reason behind the decision to replicate the Airbnb's javascript library was to have a small, but yet powerful library, for developers to use the same way of internationalizing their PHP back-ends as they do in the front-end apps. 
