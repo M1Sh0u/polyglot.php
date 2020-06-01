@@ -102,7 +102,7 @@ $polyglot = new Polyglot({
   "interpolation" => ["prefix" => "{{", "suffix" => "}}"]
 });
 
-$polyglot->t("hello_name", {name: "DeNiro"});
+$polyglot->t("hello_name", ["name" => "DeNiro"]);
 => "Hola, DeNiro."
 ```
 
